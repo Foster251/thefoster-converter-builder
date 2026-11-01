@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050508">
+  <meta name="description" content="TheFoster CONVERTER — конвертация файлов и подготовка HTML-сайтов к сборке в APK.">
+  <title>TheFoster CONVERTER</title>
+  <link rel="icon" type="image/png" href="favicon.png?v=2">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="TheFoster CONVERTER — главная">
+      <img class="brand-logo-img" src="assets/thefoster-logo.png" alt="TheFoster"><span class="brand-copy"><b>TheFoster</b><small>CONVERTER</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#tools">Конвертеры</a><a href="#html-apk">HTML → APK</a><a href="#pro">Converter PRO</a>
+    </nav>
+    <button class="btn btn-outline" id="accountBtn">Войти / Регистрация</button>
+    <div class="account-chip hidden" id="accountChip"><span id="accountDisplay"></span><button id="logoutBtn" type="button">Выйти</button></div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Открыть меню">☰</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge"><span class="pulse"></span> ЕДИНЫЙ СЕРВИС ДЛЯ ФАЙЛОВ</div>
+      <h1>Любой файл.<br><span>Нужный формат.</span></h1>
+      <p class="hero-sub">Конвертируй файлы онлайн и готовь собственные сайты к превращению в Android-приложения.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#tools">Начать конвертацию <span>↗</span></a><a class="btn btn-quiet" href="#html-apk">Создать APK <span>→</span></a></div>
+      <div class="hero-stats"><div><strong>01</strong><span>Загрузи файл</span></div><i></i><div><strong>02</strong><span>Выбери формат</span></div><i></i><div><strong>03</strong><span>Получи результат</span></div></div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-heading"><div><span class="eyebrow">ИНСТРУМЕНТЫ</span><h2>Что конвертируем?</h2></div><span class="section-note">Набор инструментов будет расширяться</span></div>
+      <div class="tool-grid">
+        <button class="tool-card active" data-tool="image"><span class="tool-icon">▧</span><span class="tool-title">Изображения</span><span class="tool-desc">PNG, JPG, WEBP</span><span class="tool-arrow">↗</span></button>
+        <button class="tool-card" data-tool="html"><span class="tool-icon code-icon">&lt;/&gt;</span><span class="tool-title">HTML → APK</span><span class="tool-desc">Сайт в Android-приложение</span><span class="tool-arrow">↗</span></button>
+        <button class="tool-card" data-tool="document"><span class="tool-icon">▤</span><span class="tool-title">Документы</span><span class="tool-desc">PDF, TXT, DOCX — скоро</span><span class="tool-arrow">↗</span></button>
+        <button class="tool-card" data-tool="archive"><span class="tool-icon">▣</span><span class="tool-title">Архивы</span><span class="tool-desc">ZIP и файлы сайта</span><span class="tool-arrow">↗</span></button>
+        <button class="tool-card" data-tool="audio"><span class="tool-icon">♫</span><span class="tool-title">Аудио</span><span class="tool-desc">MP3, WAV — скоро</span><span class="tool-arrow">↗</span></button>
+        <button class="tool-card" data-tool="video"><span class="tool-icon">▷</span><span class="tool-title">Видео</span><span class="tool-desc">MP4, WEBM — скоро</span><span class="tool-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="converter-panel section" id="converter">
+      <div class="panel-top"><div><span class="eyebrow">БЫСТРАЯ КОНВЕРТАЦИЯ</span><h2 id="converterTitle">Конвертер изображений</h2><p id="converterHint">Преобразуй изображение в другой формат прямо в браузере.</p></div><span class="local-badge"><span></span> Файл обрабатывается на устройстве</span></div>
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Выбрать файл">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="upload-symbol">↑</div><h3>Перетащи файл сюда</h3><p>или <button class="text-button" id="browseBtn">выбери на устройстве</button></p><small id="acceptedTypes">PNG, JPG или WEBP · до 20 МБ</small>
+      </div>
+      <div class="selected-file hidden" id="selectedFile"><span class="file-type" id="fileType">IMG</span><div class="file-meta"><b id="fileName">file.png</b><small id="fileSize">0 КБ</small></div><button class="remove-file" id="removeFile" aria-label="Удалить файл">×</button></div>
+      <div class="conversion-controls" id="imageControls"><label>Исходный формат<input id="sourceFormat" value="Определяется автоматически" disabled></label><span class="convert-arrow">→</span><label>Конвертировать в<select id="targetFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WEBP</option></select></label><button class="btn btn-primary convert-btn" id="convertBtn" disabled>Конвертировать <span>→</span></button></div>
+      <div class="notice hidden" id="notice" role="status"></div>
+      <div class="result-card hidden" id="resultCard"><div class="result-check">✓</div><div><b>Готово!</b><p id="resultInfo">Файл успешно конвертирован.</p></div><a class="btn btn-primary" id="downloadBtn" download="converted.png">Скачать файл ↓</a></div>
+    </section>
+
+    <section class="section apk-section" id="html-apk">
+      <div class="apk-copy"><span class="eyebrow">ГЛАВНЫЙ ИНСТРУМЕНТ</span><h2>Твой сайт.<br><span>Твоё Android-приложение.</span></h2><p>Загрузи HTML-файл или ZIP-архив сайта, укажи название и версию. Настрой приложение и подготовь проект для сборки APK.</p><ul><li>Поддержка HTML и ZIP-архивов</li><li>Название и версия приложения</li><li>Фирменный splash screen или свой вариант с PRO</li></ul><a href="#apk-builder" class="btn btn-primary">Настроить приложение <span>→</span></a></div>
+      <div class="apk-preview"><div class="phone"><div class="phone-camera"></div><div class="phone-screen"><img class="preview-logo-img" src="assets/thefoster-logo.png" alt="TheFoster"><b>TheFoster</b><span>CONVERTER</span><div class="preview-loader"><i></i></div><small>ТВОИ ИДЕИ — В ТВОЁМ ПРИЛОЖЕНИИ</small></div></div><div class="floating-file file-html">&lt;/&gt;<small>HTML</small></div><div class="floating-file file-apk">▣<small>APK</small></div></div>
+    </section>
+
+    <section class="section builder-section" id="apk-builder">
+      <div class="section-heading"><div><span class="eyebrow">HTML → APK</span><h2>Настрой приложение</h2></div><span class="pro-tag">PRO — 75 ₽/мес.</span></div>
+      <div class="builder-grid">
+        <div class="builder-form">
+          <label class="field-label">HTML-файл или ZIP-архив сайта</label>
+          <div class="mini-drop" id="apkDrop"><input type="file" id="apkInput" accept=".html,.htm,.zip,text/html,application/zip" hidden><span class="mini-file-icon">＋</span><div><b id="apkFileName">Выбери HTML или ZIP</b><small id="apkFileHint">ZIP должен содержать index.html</small></div><button type="button" class="btn btn-outline btn-small" id="apkBrowse">Выбрать</button></div>
+          <div class="form-row"><label>Название приложения<input id="appName" maxlength="40" value="My Website" placeholder="Например, My Website"></label><label>Версия<input id="appVersion" maxlength="20" value="1.0.0" placeholder="1.0.0"></label></div>
+          <label class="field-label">Идентификатор приложения <span class="lock-label" id="packageLock">🔒 PRO</span></label><input class="full-input locked-input" id="packageName" value="com.fosterstudio.app" disabled>
+          <div class="form-row"><label>Иконка приложения <span class="lock-label">🔒 PRO</span><button class="option-button locked" type="button" id="iconOption">Стандартная иконка TheFoster</button></label><label>Загрузочный экран <span class="lock-label">🔒 PRO</span><select id="splashOption"><option value="brand">Фирменный TheFoster</option><option value="none" disabled>Без экрана (PRO)</option><option value="custom" disabled>Свой экран (PRO)</option></select></label></div>
+          <button class="btn btn-primary build-btn" id="buildBtn">Проверить проект <span>→</span></button>
+          <p class="fine-print">Пока доступна проверка загруженного проекта. Для выдачи настоящего APK требуется подключить сервер сборки Android.</p>
+        </div>
+        <aside class="builder-side"><div class="side-icon">⌘</div><h3>Converter PRO</h3><p>Настраивай приложение под свой бренд и получай больше контроля над оформлением.</p><div class="price"><strong>75 ₽</strong><span>/ месяц</span></div><ul><li>Своя иконка</li><li>Собственный package name</li><li>Свой или отключённый splash screen</li></ul><button class="btn btn-outline full-btn" id="proBtn">Подробнее о PRO</button></aside>
+      </div>
+      <div class="notice hidden" id="apkNotice" role="status"></div>
+    </section>
+
+    <section class="pro-banner section" id="pro"><img class="pro-emblem-img" src="assets/thefoster-logo.png" alt="TheFoster"><div><span class="eyebrow">БОЛЬШЕ ВОЗМОЖНОСТЕЙ</span><h2>Converter <span>PRO</span></h2><p>Твой стиль, твои настройки, твои приложения.</p></div><div class="pro-banner-price"><strong>75 ₽</strong><small>в месяц</small></div><button class="btn btn-primary" id="subscribeBtn">Скоро доступно</button></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><img class="brand-logo-img" src="assets/thefoster-logo.png" alt="TheFoster"><span class="brand-copy"><b>TheFoster</b><small>CONVERTER</small></span></a><span>Конвертируй без лишних сложностей.</span><span>© 2026 TheFoster</span></footer>
+
+<div class="modal-backdrop hidden" id="authModal"><div class="modal auth-modal">
+<button class="modal-close" id="authClose">×</button><img class="auth-logo" src="assets/thefoster-logo.png" alt="TheFoster">
+<span class="eyebrow">ЛИЧНЫЙ КАБИНЕТ</span><h2 id="authHeading">Вход в аккаунт</h2>
+<div class="auth-tabs"><button class="auth-tab active" data-auth-mode="login">Войти</button><button class="auth-tab" data-auth-mode="register">Регистрация</button></div>
+<form id="authForm"><label id="authNameWrap" class="auth-field hidden">Имя пользователя<input id="authName" maxlength="40" autocomplete="username" placeholder="Например, Foster"></label>
+<label class="auth-field">Электронная почта<input id="authEmail" type="email" maxlength="190" required autocomplete="email" placeholder="you@example.com"></label>
+<label class="auth-field">Пароль<input id="authPassword" type="password" minlength="8" maxlength="128" required autocomplete="current-password" placeholder="Не менее 8 символов"></label>
+<div class="notice hidden" id="authNotice" role="status"></div><button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Войти</button>
+<p class="fine-print">Пароль хранится на сервере в виде хеша. Не используй пароль от других сайтов.</p></form></div></div>
+
+  <div class="modal-backdrop hidden" id="modal"><div class="modal"><button class="modal-close" id="modalClose">×</button><span class="eyebrow">THEFOSTER CONVERTER</span><h2 id="modalTitle">В разработке</h2><p id="modalText">Эта функция появится в следующих версиях.</p><button class="btn btn-primary" id="modalOk">Понятно</button></div></div>
+  <script src="app.js"></script>
+</body>
+</html>
