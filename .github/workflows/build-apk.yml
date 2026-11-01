@@ -125,10 +125,9 @@ jobs:
           with open(p, "w", encoding="utf-8") as f:
               f.write(s)
           PY
-        env:
-          APP_NAME: ${{ inputs.app_name }}
-          APP_VERSION: ${{ inputs.app_version }}
-          PACKAGE_ID: ${{ inputs.package_id }}
+          env:
+            APP_NAME: ${{ inputs.app_name }}
+            APP_VERSION: ${{ inputs.app_version }}
 
       - name: Build debug APK
         run: |
