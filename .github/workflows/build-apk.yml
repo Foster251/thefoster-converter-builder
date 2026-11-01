@@ -128,7 +128,7 @@ jobs:
           env:
             APP_NAME: ${{ inputs.app_name }}
             APP_VERSION: ${{ inputs.app_version }}
-
+  
       - name: Build debug APK
         run: |
           cd android
