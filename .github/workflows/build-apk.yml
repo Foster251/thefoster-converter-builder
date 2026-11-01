@@ -101,7 +101,6 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const appName = process.env.APP_NAME;
-          const appVersion = process.env.APP_VERSION;
           const packageId = process.env.PACKAGE_ID;
           fs.writeFileSync('capacitor.config.json', JSON.stringify({
             appId: packageId,
@@ -119,18 +118,20 @@ jobs:
           with open(p, encoding="utf-8") as f:
               s = f.read()
           version = os.environ["APP_VERSION"]
-          code = int(re.sub(r"[^0-9]", "", version)[:8] or "1")
+          parts = [int(x) for x in version.split(".")]
+          while len(parts) < 3:
+              parts.append(0)
+          code = parts[0] * 1000000 + parts[1] * 1000 + parts[2]
           s = re.sub(r'versionCode\s+\d+', f'versionCode {max(1, code)}', s)
           s = re.sub(r'versionName\s+"[^"]+"', f'versionName "{version}"', s)
           with open(p, "w", encoding="utf-8") as f:
               f.write(s)
           PY
-          env:
-            APP_NAME: ${{ inputs.app_name }}
-            APP_VERSION: ${{ inputs.app_version }}
-  
+
       - name: Build debug APK
+        shell: bash
         run: |
+          set -euo pipefail
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
